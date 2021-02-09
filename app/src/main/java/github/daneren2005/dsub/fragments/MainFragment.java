@@ -45,7 +45,7 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class MainFragment extends SelectRecyclerFragment<Integer> {
+public class  MainFragment extends SelectRecyclerFragment<Integer> {
 	private static final String TAG = MainFragment.class.getSimpleName();
 	public static final String SONGS_LIST_PREFIX = "songs-";
 	public static final String SONGS_NEWEST = SONGS_LIST_PREFIX + "newest";
