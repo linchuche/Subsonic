@@ -11,6 +11,7 @@ import android.util.Log;
 import github.daneren2005.dsub.R;
 import github.daneren2005.dsub.fragments.SettingsFragment;
 import github.daneren2005.dsub.util.Constants;
+import github.daneren2005.dsub.util.KeyStoreUtil;
 import github.daneren2005.dsub.util.Util;
 
 public class SplashActivity extends Activity {
@@ -30,7 +31,10 @@ public class SplashActivity extends Activity {
         editor.putString(Constants.PREFERENCES_KEY_SERVER_URL + instance, "http://47.104.23.161:4533");
         editor.putString(Constants.PREFERENCES_KEY_SERVER_NAME + instance, getResources().getString(R.string.settings_server_unused));
         editor.putString(Constants.PREFERENCES_KEY_USERNAME + instance, "ccpanguin");
-        editor.putString(Constants.PREFERENCES_KEY_PASSWORD + instance, "ENj40Uk2rPMvcWek3XH5GueQwoY8zU+Tj0hrMmFQJXn/");
+        String encryptedString = KeyStoreUtil.encrypt("ccpanguin");
+        Log.d(SplashActivity.class.getName(),"encrypted:"+encryptedString);
+        Util.getPreferences(this).edit().putString(Constants.PREFERENCES_KEY_PASSWORD + instance, encryptedString).apply();
+        Util.getPreferences(this).edit().putBoolean(Constants.PREFERENCES_KEY_ENCRYPTED_PASSWORD + instance, true).apply();
         editor.apply();
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -39,7 +43,7 @@ public class SplashActivity extends Activity {
                 startActivity(intent);
                 finish();
             }
-        }, 1500); // 延时1秒
+        }, 500); // 延时1秒
 
 //        String pwd = settings.getString(Constants.PREFERENCES_KEY_PASSWORD + 2, "ccpanguin");
 //        Log.d("TAG",pwd);
